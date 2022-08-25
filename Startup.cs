@@ -18,7 +18,7 @@ namespace ConsoleToWebAPI
         public void ConfigureServices(IServiceCollection services){
             services.AddControllers();
             // Add the CustomMiddleware service
-            services.AddTransient<CustomMiddleware>();
+            // services.AddTransient<CustomMiddleware>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -28,24 +28,24 @@ namespace ConsoleToWebAPI
             }
             app.UseRouting();
 
-            // Use the CustomMiddleware service
-            app.UseMiddleware<CustomMiddleware>();
+            // // Use the CustomMiddleware service
+            // app.UseMiddleware<CustomMiddleware>();
 
 
-            // Insert new middleware
-            app.Use(async(context, next)=>
-            {
-                await context.Response.WriteAsync("Hello from Use 1\n");
-                await next();
-            });
+            // // Insert new middleware
+            // app.Use(async(context, next)=>
+            // {
+            //     await context.Response.WriteAsync("Hello from Use 1\n");
+            //     await next();
+            // });
 
-            // Implement Map method to map middleware to URL
-            app.Map("/samrat",CustomCode);
+            // // Implement Map method to map middleware to URL
+            // app.Map("/samrat",CustomCode);
 
-            // Complete middleware execution and return to previous middleware
-            app.Run(async context => {
-                await context.Response.WriteAsync("HEllo from Run 1\n");
-            });
+            // // Complete middleware execution and return to previous middleware
+            // app.Run(async context => {
+            //     await context.Response.WriteAsync("HEllo from Run 1\n");
+            // });
 
             app.UseEndpoints(endpoints =>
             {
@@ -54,11 +54,11 @@ namespace ConsoleToWebAPI
         }
 
         // Custom code for the URL
-        private void CustomCode(IApplicationBuilder app){
-            app.Use(async(context, next)=>
-            {
-                await context.Response.WriteAsync("Hello from samrat\n");
-            });
-        }
+        // private void CustomCode(IApplicationBuilder app){
+        //     app.Use(async(context, next)=>
+        //     {
+        //         await context.Response.WriteAsync("Hello from samrat\n");
+        //     });
+        // }
     }
 }
