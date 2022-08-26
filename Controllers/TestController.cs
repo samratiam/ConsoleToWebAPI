@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace ConsoleToWebAPI.Controllers
 {
     [ApiController]
@@ -9,9 +10,18 @@ namespace ConsoleToWebAPI.Controllers
         {
             return "Hello from Get";
         }
-        public string Get1()
+
+        [HttpGet]
+        public IActionResult Get1()
         {
-            return "Hello from Get 1";
+            return Ok("Hello from Get 1");
         }
+
+        [HttpGet]
+        public IActionResult getProduct([FromServices] IProductRepository _productRepository)
+        {
+            var name = _productRepository.GetAllProducts();
+            return Ok(name);
+        }         
     }
 }
